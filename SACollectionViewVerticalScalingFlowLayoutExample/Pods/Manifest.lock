@@ -1,0 +1,10 @@
+PODS:
+  - SACollectionViewVerticalScalingFlowLayout (1.0.0)
+
+DEPENDENCIES:
+  - SACollectionViewVerticalScalingFlowLayout
+
+SPEC CHECKSUMS:
+  SACollectionViewVerticalScalingFlowLayout: b20bec66cb29e98935dd72b7b096777649ab423e
+
+COCOAPODS: 0.34.4
