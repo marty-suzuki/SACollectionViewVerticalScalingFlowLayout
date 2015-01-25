@@ -6,7 +6,7 @@
 
 ## About
 
-SACollectionViewVerticalScalingFlowLayout applies scaling up or down effect to appearing or disappearing cells.
+SACollectionViewVerticalScalingFlowLayout applies scaling up or down effect to appearing or disappearing cells. In addition, animation of UIDynamics applies each cell.
 
 ![Alert](./SampleImage/sample.gif)
 
@@ -26,11 +26,11 @@ Write this code at viewDidLoad method and so on.
 
 ``` objective-c
 
-    [self.collectionView registerClass:[SACollectionViewVerticalScalingCell class] forCellWithReuseIdentifier:kCellIdentifier];
-    SACollectionViewVerticalScalingFlowLayout *layout = [[SACollectionViewVerticalScalingFlowLayout alloc] init];
-    layout.scaleMode = SACollectionViewVerticalScalingFlowLayoutScaleModeHard;
-    layout.alphaMode = SACollectionViewVerticalScalingFlowLayoutScaleModeEasy;
-    self.collectionView.collectionViewLayout = layout;
+[self.collectionView registerClass:[SACollectionViewVerticalScalingCell class] forCellWithReuseIdentifier:kCellIdentifier];
+SACollectionViewVerticalScalingFlowLayout *layout = [[SACollectionViewVerticalScalingFlowLayout alloc] init];
+layout.scaleMode = SACollectionViewVerticalScalingFlowLayoutScaleModeHard;
+layout.alphaMode = SACollectionViewVerticalScalingFlowLayoutScaleModeEasy;
+self.collectionView.collectionViewLayout = layout;
     
 ```
 
@@ -44,11 +44,11 @@ You can change alpha to set ScaleModeType for scaleMode property of SACollection
 
 ``` objective-c
 
-	@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutScaleMode scaleMode;
+@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutScaleMode scaleMode;
 
-	SACollectionViewVerticalScalingFlowLayoutScaleModeNone
-    SACollectionViewVerticalScalingFlowLayoutScaleModeEasy
-    SACollectionViewVerticalScalingFlowLayoutScaleModeHard
+SACollectionViewVerticalScalingFlowLayoutScaleModeNone
+SACollectionViewVerticalScalingFlowLayoutScaleModeEasy
+SACollectionViewVerticalScalingFlowLayoutScaleModeHard
 
 ```
 
@@ -58,11 +58,11 @@ You can change alpha to set AlphaModeType for alphaMode property of SACollection
 
 ``` objective-c
 	
-	@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutAlphaMode alphaMode;
+@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutAlphaMode alphaMode;
 
-	SACollectionViewVerticalScalingFlowLayoutAlphaModeNone
-    SACollectionViewVerticalScalingFlowLayoutAlphaModeEasy
-    SACollectionViewVerticalScalingFlowLayoutAlphaModeHard
+SACollectionViewVerticalScalingFlowLayoutAlphaModeNone
+SACollectionViewVerticalScalingFlowLayoutAlphaModeEasy
+SACollectionViewVerticalScalingFlowLayoutAlphaModeHard
 
 ```
 
@@ -72,10 +72,10 @@ You use containerView instead of contentView like this code, then you can add wh
 
 ``` objective-c
 
-	SACollectionViewVerticalScalingCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
-    imageView.image = [UIImage imageNamed:@"cat"];
-    [cell.containerView addSubview:imageView];
+SACollectionViewVerticalScalingCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
+imageView.image = [UIImage imageNamed:@"cat"];
+[cell.containerView addSubview:imageView];
 
 ```
 
