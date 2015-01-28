@@ -47,7 +47,8 @@ static NSString *const kCellIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SACollectionViewVerticalScalingCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier forIndexPath:indexPath];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
-    imageView.image = [UIImage imageNamed:@"cat"];
+    NSInteger number = indexPath.row % 7 + 1;
+    imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"0%@", @(number)]];
     [cell.containerView addSubview:imageView];
     return cell;
 }
