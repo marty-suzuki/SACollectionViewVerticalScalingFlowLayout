@@ -3,6 +3,7 @@
 [![Version](https://img.shields.io/cocoapods/v/SACollectionViewVerticalScalingFlowLayout.svg?style=flat)](http://cocoadocs.org/docsets/SACollectionViewVerticalScalingFlowLayout)
 [![License](https://img.shields.io/cocoapods/l/SACollectionViewVerticalScalingFlowLayout.svg?style=flat)](http://cocoadocs.org/docsets/SACollectionViewVerticalScalingFlowLayout)
 [![Platform](https://img.shields.io/cocoapods/p/SACollectionViewVerticalScalingFlowLayout.svg?style=flat)](http://cocoadocs.org/docsets/SACollectionViewVerticalScalingFlowLayout)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/szk-atmosphere/sacollectionviewverticalscalingflowlayout/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ## About
 
