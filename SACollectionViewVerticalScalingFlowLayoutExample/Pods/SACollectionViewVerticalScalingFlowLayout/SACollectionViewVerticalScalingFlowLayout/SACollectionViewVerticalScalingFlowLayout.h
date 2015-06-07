@@ -8,22 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SACollectionViewVerticalScalingFlowLayout : UICollectionViewFlowLayout
-
-typedef NS_ENUM(NSInteger, SACollectionViewVerticalScalingFlowLayoutAlphaMode) {
-    SACollectionViewVerticalScalingFlowLayoutAlphaModeNone = 0,
-    SACollectionViewVerticalScalingFlowLayoutAlphaModeEasy,
-    SACollectionViewVerticalScalingFlowLayoutAlphaModeHard
-};
-
-typedef NS_ENUM(NSInteger, SACollectionViewVerticalScalingFlowLayoutScaleMode) {
-    SACollectionViewVerticalScalingFlowLayoutScaleModeNone = 0,
-    SACollectionViewVerticalScalingFlowLayoutScaleModeEasy,
-    SACollectionViewVerticalScalingFlowLayoutScaleModeHard
-};
-
-@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutScaleMode scaleMode;
-@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutAlphaMode alphaMode;
-
-
-@end
+//@interface SACollectionViewVerticalScalingFlowLayout : UICollectionViewFlowLayout
+//
+//typedef NS_ENUM(NSInteger, SACollectionViewVerticalScalingFlowLayoutAlphaMode) {
+//    SACollectionViewVerticalScalingFlowLayoutAlphaModeNone = 0,
+//    SACollectionViewVerticalScalingFlowLayoutAlphaModeEasy,
+//    SACollectionViewVerticalScalingFlowLayoutAlphaModeHard
+//};
+//
+//typedef NS_ENUM(NSInteger, SACollectionViewVerticalScalingFlowLayoutScaleMode) {
+//    SACollectionViewVerticalScalingFlowLayoutScaleModeNone = 0,
+//    SACollectionViewVerticalScalingFlowLayoutScaleModeEasy,
+//    SACollectionViewVerticalScalingFlowLayoutScaleModeHard
+//};
+//
+//@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutScaleMode scaleMode;
+//@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutAlphaMode alphaMode;
+//
+//
+//@end

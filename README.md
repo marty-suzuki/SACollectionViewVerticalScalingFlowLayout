@@ -11,6 +11,26 @@ SACollectionViewVerticalScalingFlowLayout applies scaling up or down effect to a
 
 ![Alert](./SampleImage/sample.gif)
 
+## Features
+
+- [x] Vertical Scaling
+- [x] Rewrite in Swift 
+- [ ] Support Horizonal Scaling
+
+## Installation
+
+#### CocoaPods
+
+SACollectionViewVerticalScalingFlowLayout is available through [CocoaPods](http://cocoapods.org). If you have cocoapods 0.36.0 or greater, you can install
+it, simply add the following line to your Podfile:
+
+    pod "SACollectionViewVerticalScalingFlowLayout"
+
+#### Manually
+
+Add the [SACollectionViewVerticalScalingFlowLayout](./SACollectionViewVerticalScalingFlowLayout) directory to your project. 
+
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
@@ -25,13 +45,13 @@ Go to 'Attributes Inspector' of Storyboard or Xib, and set Layout tab 'Custom'. 
 
 Write this code at viewDidLoad method and so on.
 
-``` objective-c
+```swift
 
-[self.collectionView registerClass:[SACollectionViewVerticalScalingCell class] forCellWithReuseIdentifier:kCellIdentifier];
-SACollectionViewVerticalScalingFlowLayout *layout = [[SACollectionViewVerticalScalingFlowLayout alloc] init];
-layout.scaleMode = SACollectionViewVerticalScalingFlowLayoutScaleModeHard;
-layout.alphaMode = SACollectionViewVerticalScalingFlowLayoutScaleModeEasy;
-self.collectionView.collectionViewLayout = layout;
+collectionView.registerClass(SACollectionViewVerticalScalingCell.self, forCellWithReuseIdentifier:kCellIdentifier)
+let layout = SACollectionViewVerticalScalingFlowLayout()
+layout.scaleMode = .Hard
+layout.alphaMode = .Easy
+collectionView.collectionViewLayout = layout
     
 ```
 
@@ -41,29 +61,30 @@ You can customize scaling and alpha of apearing or disapering cells.
 
 #### For Scale
 
-You can change alpha to set ScaleModeType for scaleMode property of SACollectionViewVerticalScalingFlowLayout.
+You can change alpha to set ScaleModeType for scaleMode property of SACollectionViewVerticalScalingFlowLayout.(default: .Easy)
 
-``` objective-c
+```swift
 
-@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutScaleMode scaleMode;
+var scaleMode: SACollectionViewVerticalScalingFlowLayoutScaleMode
 
-SACollectionViewVerticalScalingFlowLayoutScaleModeNone
-SACollectionViewVerticalScalingFlowLayoutScaleModeEasy
-SACollectionViewVerticalScalingFlowLayoutScaleModeHard
+enum SACollectionViewVerticalScalingFlowLayoutScaleMode {
+    case None, Easy, Hard
+}
+
 
 ```
 
 #### For Alpha
 
-You can change alpha to set AlphaModeType for alphaMode property of SACollectionViewVerticalScalingFlowLayout.
+You can change alpha to set AlphaModeType for alphaMode property of SACollectionViewVerticalScalingFlowLayout. (default: .Easy)
 
-``` objective-c
+``` swift
 	
-@property (assign, nonatomic) SACollectionViewVerticalScalingFlowLayoutAlphaMode alphaMode;
-
-SACollectionViewVerticalScalingFlowLayoutAlphaModeNone
-SACollectionViewVerticalScalingFlowLayoutAlphaModeEasy
-SACollectionViewVerticalScalingFlowLayoutAlphaModeHard
+var alphaMode: SACollectionViewVerticalScalingFlowLayoutScaleMode
+	
+enum SACollectionViewVerticalScalingFlowLayoutAlphaMode {
+    case None, Easy, Hard
+}
 
 ```
 
@@ -71,25 +92,19 @@ SACollectionViewVerticalScalingFlowLayoutAlphaModeHard
 
 You use containerView instead of contentView like this code, then you can add what kind of view you want to add.
 
-``` objective-c
+``` swift
 
-SACollectionViewVerticalScalingCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
-imageView.image = [UIImage imageNamed:@"cat"];
-[cell.containerView addSubview:imageView];
+let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kCellIdentifier, forIndexPath: indexPath)
+let imageView = UIImageView(frame: cell.bounds)
+imageView.image = UIImage(named: "cat")
+cell.containerView?.addSubview(imageView)
 
 ```
 
 ## Requirements
-- iOS 7.0 and greater
+- Xcode 6.3 or greater
+- iOS7.0(manually only) or greater
 - ARC
-
-## Installation
-
-SACollectionViewVerticalScalingFlowLayout is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-    pod "SACollectionViewVerticalScalingFlowLayout"
 
 ## Author
 

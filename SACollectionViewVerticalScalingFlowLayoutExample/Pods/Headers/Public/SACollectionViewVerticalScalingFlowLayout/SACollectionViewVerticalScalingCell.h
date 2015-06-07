@@ -1,1 +1,0 @@
-../../../SACollectionViewVerticalScalingFlowLayout/SACollectionViewVerticalScalingFlowLayout/SACollectionViewVerticalScalingCell.h

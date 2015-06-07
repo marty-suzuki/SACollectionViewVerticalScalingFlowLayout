@@ -7,8 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "SACollectionViewVerticalScalingCell.h"
-#import "SACollectionViewVerticalScalingFlowLayout.h"
+#import <SACollectionViewVerticalScalingFlowLayout/SACollectionViewVerticalScalingFlowLayout-Swift.h>
 
 @interface ViewController () <UICollectionViewDataSource>
 
@@ -23,11 +22,10 @@ static NSString *const kCellIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
     [self.collectionView registerClass:[SACollectionViewVerticalScalingCell class] forCellWithReuseIdentifier:kCellIdentifier];
     self.collectionView.dataSource = self;
     SACollectionViewVerticalScalingFlowLayout *layout = [[SACollectionViewVerticalScalingFlowLayout alloc] init];
-    layout.scaleMode = SACollectionViewVerticalScalingFlowLayoutScaleModeHard;
-    layout.alphaMode = SACollectionViewVerticalScalingFlowLayoutScaleModeEasy;
     self.collectionView.collectionViewLayout = layout;
 }
 
