@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SACollectionViewVerticalScalingFlowLayout"
-  s.version          = "1.0.0"
+  s.version          = "2.0.0"
   s.summary          = "SACollectionViewVerticalScalingFlowLayout applies scaling up or down effect to appearing or disappearing cells."
   s.homepage         = "https://github.com/szk-atmosphere/SACollectionViewVerticalScalingFlowLayout"
   s.license          = 'MIT'
@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/szk-atmosphere/SACollectionViewVerticalScalingFlowLayout.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/SzkAtmosphere'
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.source_files = 'SACollectionViewVerticalScalingFlowLayout/*.{h,m}'
+  s.source_files = 'SACollectionViewVerticalScalingFlowLayout/*.swift'
 end

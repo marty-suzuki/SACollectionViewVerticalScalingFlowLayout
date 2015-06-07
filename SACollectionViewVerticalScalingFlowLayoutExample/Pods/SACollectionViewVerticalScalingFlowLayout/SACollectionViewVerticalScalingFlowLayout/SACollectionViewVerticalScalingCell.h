@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SACollectionViewVerticalScalingCell : UICollectionViewCell
-
-@property (strong, nonatomic, readonly) UIView *containerView;
-@property (assign, nonatomic) CGAffineTransform shadeTransform;
-@property (assign, nonatomic) CGFloat shadeAlpha;
-
-@end
+//@interface SACollectionViewVerticalScalingCell : UICollectionViewCell
+//
+//@property (strong, nonatomic, readonly) UIView *containerView;
+//@property (assign, nonatomic) CGAffineTransform shadeTransform;
+//@property (assign, nonatomic) CGFloat shadeAlpha;
+//
+//@end
