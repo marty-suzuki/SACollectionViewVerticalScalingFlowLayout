@@ -122,21 +122,42 @@ extension SACollectionViewVerticalScalingFlowLayout {
     override public func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         if let items = dynamicAnimator?.itemsInRect(rect), cells = collectionView?.visibleCells() as? [SACollectionViewVerticalScalingCell], toView = collectionView?.superview, collectionViewSize = collectionView?.bounds.size {
             
-            for cell in cells {
-                if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
-                    let cellSize = cell.bounds.size
-                    if -cellSize.height / 2 >= point.y {
-                        let baseValue = 1 - (point.y / (-cellSize.height / 2))
-                        let scale = 1 + baseValue * scaleMode.value()
-                        let alpha = 1 + baseValue * 0.1
-                        scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                    } else if collectionViewSize.height - ((cellSize.height / 4) * 3) <= point.y {
-                        let baseValue = (point.y - (collectionViewSize.height - ((cellSize.height / 4) * 3))) / ((cellSize.height / 4) * 3)
-                        let scale = 1 - baseValue * scaleMode.value()
-                        let alpha = 1 - baseValue * 0.1
-                        scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+            switch scrollDirection {
+                case .Vertical:
+                    for cell in cells {
+                        if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
+                            let cellSize = cell.bounds.size
+                            if -cellSize.height / 2 >= point.y {
+                                let baseValue = 1 - (point.y / (-cellSize.height / 2))
+                                let scale = 1 + baseValue * scaleMode.value()
+                                let alpha = 1 + baseValue * 0.1
+                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            } else if collectionViewSize.height - ((cellSize.height / 4) * 3) <= point.y {
+                                let baseValue = (point.y - (collectionViewSize.height - ((cellSize.height / 4) * 3))) / ((cellSize.height / 4) * 3)
+                                let scale = 1 - baseValue * scaleMode.value()
+                                let alpha = 1 - baseValue * 0.1
+                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            }
+                        }
                     }
-                }
+                    
+                case .Horizontal:
+                    for cell in cells {
+                        if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
+                            let cellSize = cell.bounds.size
+                            if -cellSize.width / 2 >= point.x {
+                                let baseValue = 1 - (point.x / (-cellSize.width / 2))
+                                let scale = 1 + baseValue * scaleMode.value()
+                                let alpha = 1 + baseValue * 0.1
+                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            } else if collectionViewSize.width - ((cellSize.width / 4) * 3) <= point.x {
+                                let baseValue = (point.x - (collectionViewSize.width - ((cellSize.width / 4) * 3))) / ((cellSize.width / 4) * 3)
+                                let scale = 1 - baseValue * scaleMode.value()
+                                let alpha = 1 - baseValue * 0.1
+                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            }
+                        }
+                    }
             }
             
             return items.count < 1 ? super.layoutAttributesForElementsInRect(rect) : items
@@ -159,24 +180,48 @@ extension SACollectionViewVerticalScalingFlowLayout {
         ***/
         
         if let collectionView = collectionView, behaviors = dynamicAnimator?.behaviors as? [UIAttachmentBehavior] {
-            let delta = newBounds.origin.y - collectionView.bounds.origin.y
-            let touchPoint = collectionView.panGestureRecognizer.locationInView(collectionView)
-            for (index, behavior) in enumerate(behaviors) {
-                let yDistanceFromTouch = fabs(touchPoint.y - behavior.anchorPoint.y)
-                let xDistanceFromTouch = fabs(touchPoint.x - behavior.anchorPoint.x)
-                let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500
-                
-                if let attributes = behavior.items.first as? UICollectionViewLayoutAttributes {
-                    var center = attributes.center
-                    if delta < 0 {
-                        center.y += max(delta, delta * scrollResistance)
-                    } else {
-                        center.y += min(delta, delta * scrollResistance)
+            switch scrollDirection {
+                case .Vertical:
+                    let delta = newBounds.origin.y - collectionView.bounds.origin.y
+                    let touchPoint = collectionView.panGestureRecognizer.locationInView(collectionView)
+                    for (index, behavior) in enumerate(behaviors) {
+                        let yDistanceFromTouch = fabs(touchPoint.y - behavior.anchorPoint.y)
+                        let xDistanceFromTouch = fabs(touchPoint.x - behavior.anchorPoint.x)
+                        let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500
+                        
+                        if let attributes = behavior.items.first as? UICollectionViewLayoutAttributes {
+                            var center = attributes.center
+                            if delta < 0 {
+                                center.y += max(delta, delta * scrollResistance)
+                            } else {
+                                center.y += min(delta, delta * scrollResistance)
+                            }
+                            attributes.center = center
+                            
+                            dynamicAnimator?.updateItemUsingCurrentState(attributes)
+                        }
                     }
-                    attributes.center = center
-                    
-                    dynamicAnimator?.updateItemUsingCurrentState(attributes)
-                }
+                
+                case .Horizontal:
+                    let delta = newBounds.origin.x - collectionView.bounds.origin.x
+                    let touchPoint = collectionView.panGestureRecognizer.locationInView(collectionView)
+                    for (index, behavior) in enumerate(behaviors) {
+                        let yDistanceFromTouch = fabs(touchPoint.y - behavior.anchorPoint.y)
+                        let xDistanceFromTouch = fabs(touchPoint.x - behavior.anchorPoint.x)
+                        let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500
+                        
+                        if let attributes = behavior.items.first as? UICollectionViewLayoutAttributes {
+                            var center = attributes.center
+                            if delta < 0 {
+                                center.x += max(delta, delta * scrollResistance)
+                            } else {
+                                center.x += min(delta, delta * scrollResistance)
+                            }
+                            attributes.center = center
+                            
+                            dynamicAnimator?.updateItemUsingCurrentState(attributes)
+                        }
+                    }
             }
             
             return true
