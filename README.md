@@ -9,13 +9,13 @@
 
 SACollectionViewVerticalScalingFlowLayout applies scaling up or down effect to appearing or disappearing cells. In addition, animation of UIDynamics applies each cell.
 
-![Alert](./SampleImage/sample.gif)
+![sample1](./SampleImage/sample1.gif) ![sample2](./SampleImage/sample2.gif)
 
 ## Features
 
 - [x] Vertical Scaling
 - [x] Rewrite in Swift 
-- [ ] Support Horizonal Scaling
+- [x] Support Horizonal Scaling
 
 ## Installation
 
@@ -51,8 +51,17 @@ collectionView.registerClass(SACollectionViewVerticalScalingCell.self, forCellWi
 let layout = SACollectionViewVerticalScalingFlowLayout()
 layout.scaleMode = .Hard
 layout.alphaMode = .Easy
+layout.scrollDirection = .Vertical
 collectionView.collectionViewLayout = layout
     
+```
+
+if you want to use Horizontal mode.
+
+```swift
+
+layout.scrollDirection = .Horizontal
+
 ```
 
 ## Customization
