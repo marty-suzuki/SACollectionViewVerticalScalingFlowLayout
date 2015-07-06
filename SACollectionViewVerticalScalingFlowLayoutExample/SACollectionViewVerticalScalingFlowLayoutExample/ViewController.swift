@@ -22,6 +22,27 @@ class ViewController: UIViewController {
         if let layout = collectionView.collectionViewLayout as? SACollectionViewVerticalScalingFlowLayout {
             layout.scaleMode = .Hard
             layout.alphaMode = .Easy
+            switch collectionView.tag {
+                case 10001:
+                    layout.scrollDirection = .Vertical
+                    
+                case 10002:
+                    layout.scrollDirection = .Vertical
+                    layout.itemSize = CGSize(width: 100, height: 100)
+                    layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                    layout.minimumInteritemSpacing = 10
+                    layout.minimumLineSpacing = 10
+                    
+                case 10003:
+                    layout.scrollDirection = .Horizontal
+                    
+                default:
+                    layout.scrollDirection = .Horizontal
+                    layout.itemSize = CGSize(width: 100, height: 100)
+                    layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                    layout.minimumInteritemSpacing = 10
+                    layout.minimumLineSpacing = 10
+            }
         }
     }
     
