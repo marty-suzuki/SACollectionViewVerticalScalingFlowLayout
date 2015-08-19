@@ -11,6 +11,9 @@ SACollectionViewVerticalScalingFlowLayout applies scaling up or down effect to a
 
 ![sample1](./SampleImage/sample1.gif) ![sample2](./SampleImage/sample2.gif)
 
+[ManiacDev.com](https://maniacdev.com/) referred.  
+[https://maniacdev.com/2015/07/open-source-uicollectionview-layout-that-automatically-scales-images-scrolling-inout-of-view](https://maniacdev.com/2015/07/open-source-uicollectionview-layout-that-automatically-scales-images-scrolling-inout-of-view)
+
 ## Features
 
 - [x] Vertical Scaling
