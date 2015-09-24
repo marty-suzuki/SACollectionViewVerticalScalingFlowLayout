@@ -1,5 +1,5 @@
 framework module SACollectionViewVerticalScalingFlowLayout {
-  umbrella header "Pods-SACollectionViewVerticalScalingFlowLayout-umbrella.h"
+  umbrella header "SACollectionViewVerticalScalingFlowLayout-umbrella.h"
 
   export *
   module * { export * }
