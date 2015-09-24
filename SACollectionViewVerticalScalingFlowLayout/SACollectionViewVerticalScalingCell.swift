@@ -24,7 +24,7 @@ public class SACollectionViewVerticalScalingCell : UICollectionViewCell {
     public private(set) var containerView: UIView?
     private var shadeView: UIView?
     
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configuration()
     }

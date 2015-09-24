@@ -56,7 +56,7 @@ public class SACollectionViewVerticalScalingFlowLayout : UICollectionViewFlowLay
     private let kMinimumInteritemSpacing: CGFloat = 25
     private let kMinimumLineSpacing: CGFloat = 25
     
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configuration()
     }
@@ -106,9 +106,9 @@ extension SACollectionViewVerticalScalingFlowLayout {
     override public func prepareLayout() {
         super.prepareLayout()
         
-        if let contentSize = collectionView?.contentSize, dynamicAnimator = dynamicAnimator, items = super.layoutAttributesForElementsInRect(CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)) as? [UICollectionViewLayoutAttributes] {
+        if let contentSize = collectionView?.contentSize, dynamicAnimator = dynamicAnimator, items = super.layoutAttributesForElementsInRect(CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)) {
             if dynamicAnimator.behaviors.count < 1 {
-                for (index, item) in enumerate(items) {
+                for item in items {
                     let behaviour = UIAttachmentBehavior(item: item, attachedToAnchor: item.center)
                     behaviour.length = 0
                     behaviour.damping = 0.8
@@ -119,54 +119,54 @@ extension SACollectionViewVerticalScalingFlowLayout {
         }
     }
     
-    override public func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+    override public func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         if let items = dynamicAnimator?.itemsInRect(rect), cells = collectionView?.visibleCells() as? [SACollectionViewVerticalScalingCell], toView = collectionView?.superview, collectionViewSize = collectionView?.bounds.size {
-            
+
             switch scrollDirection {
-                case .Vertical:
-                    for cell in cells {
-                        if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
-                            let cellSize = cell.bounds.size
-                            if -cellSize.height / 2 >= point.y {
-                                let baseValue = 1 - (point.y / (-cellSize.height / 2))
-                                let scale = 1 + baseValue * scaleMode.value()
-                                let alpha = 1 + baseValue * 0.1
-                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            } else if collectionViewSize.height - ((cellSize.height / 4) * 3) <= point.y {
-                                let baseValue = (point.y - (collectionViewSize.height - ((cellSize.height / 4) * 3))) / ((cellSize.height / 4) * 3)
-                                let scale = 1 - baseValue * scaleMode.value()
-                                let alpha = 1 - baseValue * 0.1
-                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            }
+            case .Vertical:
+                for cell in cells {
+                    if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
+                        let cellSize = cell.bounds.size
+                        if -cellSize.height / 2 >= point.y {
+                            let baseValue = 1 - (point.y / (-cellSize.height / 2))
+                            let scale = 1 + baseValue * scaleMode.value()
+                            let alpha = 1 + baseValue * 0.1
+                            scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                        } else if collectionViewSize.height - ((cellSize.height / 4) * 3) <= point.y {
+                            let baseValue = (point.y - (collectionViewSize.height - ((cellSize.height / 4) * 3))) / ((cellSize.height / 4) * 3)
+                            let scale = 1 - baseValue * scaleMode.value()
+                            let alpha = 1 - baseValue * 0.1
+                            scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
                         }
                     }
-                    
-                case .Horizontal:
-                    for cell in cells {
-                        if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
-                            let cellSize = cell.bounds.size
-                            if -cellSize.width / 2 >= point.x {
-                                let baseValue = 1 - (point.x / (-cellSize.width / 2))
-                                let scale = 1 + baseValue * scaleMode.value()
-                                let alpha = 1 + baseValue * 0.1
-                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            } else if collectionViewSize.width - ((cellSize.width / 4) * 3) <= point.x {
-                                let baseValue = (point.x - (collectionViewSize.width - ((cellSize.width / 4) * 3))) / ((cellSize.width / 4) * 3)
-                                let scale = 1 - baseValue * scaleMode.value()
-                                let alpha = 1 - baseValue * 0.1
-                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            }
+                }
+
+            case .Horizontal:
+                for cell in cells {
+                    if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
+                        let cellSize = cell.bounds.size
+                        if -cellSize.width / 2 >= point.x {
+                            let baseValue = 1 - (point.x / (-cellSize.width / 2))
+                            let scale = 1 + baseValue * scaleMode.value()
+                            let alpha = 1 + baseValue * 0.1
+                            scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                        } else if collectionViewSize.width - ((cellSize.width / 4) * 3) <= point.x {
+                            let baseValue = (point.x - (collectionViewSize.width - ((cellSize.width / 4) * 3))) / ((cellSize.width / 4) * 3)
+                            let scale = 1 - baseValue * scaleMode.value()
+                            let alpha = 1 - baseValue * 0.1
+                            scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
                         }
                     }
+                }
             }
-            
-            return items.count < 1 ? super.layoutAttributesForElementsInRect(rect) : items
+            if !items.isEmpty {
+              return items as? [UICollectionViewLayoutAttributes]
+          }
         }
-        
         return super.layoutAttributesForElementsInRect(rect)
     }
-    
-    public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
+
+    public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         if let attributes = dynamicAnimator?.layoutAttributesForCellAtIndexPath(indexPath) {
             return attributes
         }
@@ -184,7 +184,7 @@ extension SACollectionViewVerticalScalingFlowLayout {
                 case .Vertical:
                     let delta = newBounds.origin.y - collectionView.bounds.origin.y
                     let touchPoint = collectionView.panGestureRecognizer.locationInView(collectionView)
-                    for (index, behavior) in enumerate(behaviors) {
+                    for behavior in behaviors {
                         let yDistanceFromTouch = fabs(touchPoint.y - behavior.anchorPoint.y)
                         let xDistanceFromTouch = fabs(touchPoint.x - behavior.anchorPoint.x)
                         let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500
@@ -205,7 +205,7 @@ extension SACollectionViewVerticalScalingFlowLayout {
                 case .Horizontal:
                     let delta = newBounds.origin.x - collectionView.bounds.origin.x
                     let touchPoint = collectionView.panGestureRecognizer.locationInView(collectionView)
-                    for (index, behavior) in enumerate(behaviors) {
+                    for behavior in behaviors {
                         let yDistanceFromTouch = fabs(touchPoint.y - behavior.anchorPoint.y)
                         let xDistanceFromTouch = fabs(touchPoint.x - behavior.anchorPoint.x)
                         let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500

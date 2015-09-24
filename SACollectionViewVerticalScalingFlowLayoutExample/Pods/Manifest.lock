@@ -1,14 +1,14 @@
 PODS:
-  - SACollectionViewVerticalScalingFlowLayout (2.0.0)
+  - SACollectionViewVerticalScalingFlowLayout (2.1.0)
 
 DEPENDENCIES:
   - SACollectionViewVerticalScalingFlowLayout (from `../`)
 
 EXTERNAL SOURCES:
   SACollectionViewVerticalScalingFlowLayout:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  SACollectionViewVerticalScalingFlowLayout: eaba61ead67879d9968ccb99f15e448abef49a0c
+  SACollectionViewVerticalScalingFlowLayout: f11d0b0df02f9c63a3eb641cd0c14511ffc93581
 
-COCOAPODS: 0.36.1
+COCOAPODS: 0.38.2
