@@ -106,62 +106,70 @@ extension SACollectionViewVerticalScalingFlowLayout {
     override public func prepareLayout() {
         super.prepareLayout()
         
-        if let contentSize = collectionView?.contentSize, dynamicAnimator = dynamicAnimator, items = super.layoutAttributesForElementsInRect(CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)) {
-            if dynamicAnimator.behaviors.count < 1 {
-                for item in items {
-                    let behaviour = UIAttachmentBehavior(item: item, attachedToAnchor: item.center)
-                    behaviour.length = 0
-                    behaviour.damping = 0.8
-                    behaviour.frequency = 1
-                    dynamicAnimator.addBehavior(behaviour)
-                }
+        guard let contentSize = collectionView?.contentSize, dynamicAnimator = dynamicAnimator,
+                  items = super.layoutAttributesForElementsInRect(CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
+        else {
+            return
+        }
+        
+        if dynamicAnimator.behaviors.count < 1 {
+            for item in items {
+                let behaviour = UIAttachmentBehavior(item: item, attachedToAnchor: item.center)
+                behaviour.length = 0
+                behaviour.damping = 0.8
+                behaviour.frequency = 1
+                dynamicAnimator.addBehavior(behaviour)
             }
         }
     }
     
     override public func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         if let items = dynamicAnimator?.itemsInRect(rect), cells = collectionView?.visibleCells() as? [SACollectionViewVerticalScalingCell], toView = collectionView?.superview, collectionViewSize = collectionView?.bounds.size {
-
             switch scrollDirection {
-            case .Vertical:
-                for cell in cells {
-                    if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
-                        let cellSize = cell.bounds.size
-                        if -cellSize.height / 2 >= point.y {
-                            let baseValue = 1 - (point.y / (-cellSize.height / 2))
-                            let scale = 1 + baseValue * scaleMode.value()
-                            let alpha = 1 + baseValue * 0.1
-                            scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                        } else if collectionViewSize.height - ((cellSize.height / 4) * 3) <= point.y {
-                            let baseValue = (point.y - (collectionViewSize.height - ((cellSize.height / 4) * 3))) / ((cellSize.height / 4) * 3)
-                            let scale = 1 - baseValue * scaleMode.value()
-                            let alpha = 1 - baseValue * 0.1
-                            scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                case .Vertical:
+                    for cell in cells {
+                        if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
+                            let cellSize = cell.bounds.size
+                            if -cellSize.height / 2 >= point.y {
+                                let baseValue = 1 - (point.y / (-cellSize.height / 2))
+                                let scale = 1 + baseValue * scaleMode.value()
+                                let alpha = 1 + baseValue * 0.1
+                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            } else if collectionViewSize.height - ((cellSize.height / 4) * 3) <= point.y {
+                                let baseValue = (point.y - (collectionViewSize.height - ((cellSize.height / 4) * 3))) / ((cellSize.height / 4) * 3)
+                                let scale = 1 - baseValue * scaleMode.value()
+                                let alpha = 1 - baseValue * 0.1
+                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            } else {
+                                scalingProcess(cell, scale: 1, alpha: 1, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            }
                         }
                     }
-                }
 
-            case .Horizontal:
-                for cell in cells {
-                    if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
-                        let cellSize = cell.bounds.size
-                        if -cellSize.width / 2 >= point.x {
-                            let baseValue = 1 - (point.x / (-cellSize.width / 2))
-                            let scale = 1 + baseValue * scaleMode.value()
-                            let alpha = 1 + baseValue * 0.1
-                            scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                        } else if collectionViewSize.width - ((cellSize.width / 4) * 3) <= point.x {
-                            let baseValue = (point.x - (collectionViewSize.width - ((cellSize.width / 4) * 3))) / ((cellSize.width / 4) * 3)
-                            let scale = 1 - baseValue * scaleMode.value()
-                            let alpha = 1 - baseValue * 0.1
-                            scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                case .Horizontal:
+                    for cell in cells {
+                        if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
+                            let cellSize = cell.bounds.size
+                            if -cellSize.width / 2 >= point.x {
+                                let baseValue = 1 - (point.x / (-cellSize.width / 2))
+                                let scale = 1 + baseValue * scaleMode.value()
+                                let alpha = 1 + baseValue * 0.1
+                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            } else if collectionViewSize.width - ((cellSize.width / 4) * 3) <= point.x {
+                                let baseValue = (point.x - (collectionViewSize.width - ((cellSize.width / 4) * 3))) / ((cellSize.width / 4) * 3)
+                                let scale = 1 - baseValue * scaleMode.value()
+                                let alpha = 1 - baseValue * 0.1
+                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            } else {
+                                scalingProcess(cell, scale: 1, alpha: 1, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
+                            }
                         }
                     }
-                }
             }
+            
             if !items.isEmpty {
-              return items as? [UICollectionViewLayoutAttributes]
-          }
+                return items as? [UICollectionViewLayoutAttributes]
+            }
         }
         return super.layoutAttributesForElementsInRect(rect)
     }
@@ -223,10 +231,8 @@ extension SACollectionViewVerticalScalingFlowLayout {
                         }
                     }
             }
-            
             return true
         }
-        
         return false
     }
 }
