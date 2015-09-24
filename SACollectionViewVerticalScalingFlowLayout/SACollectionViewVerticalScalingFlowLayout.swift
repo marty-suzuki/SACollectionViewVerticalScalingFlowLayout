@@ -108,7 +108,7 @@ extension SACollectionViewVerticalScalingFlowLayout {
         
         if let contentSize = collectionView?.contentSize, dynamicAnimator = dynamicAnimator, items = super.layoutAttributesForElementsInRect(CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)) {
             if dynamicAnimator.behaviors.count < 1 {
-                for (index, item) in items.enumerate() {
+                for item in items {
                     let behaviour = UIAttachmentBehavior(item: item, attachedToAnchor: item.center)
                     behaviour.length = 0
                     behaviour.damping = 0.8
@@ -166,7 +166,7 @@ extension SACollectionViewVerticalScalingFlowLayout {
         return super.layoutAttributesForElementsInRect(rect)
     }
 
-    public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
+    public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         if let attributes = dynamicAnimator?.layoutAttributesForCellAtIndexPath(indexPath) {
             return attributes
         }
@@ -184,7 +184,7 @@ extension SACollectionViewVerticalScalingFlowLayout {
                 case .Vertical:
                     let delta = newBounds.origin.y - collectionView.bounds.origin.y
                     let touchPoint = collectionView.panGestureRecognizer.locationInView(collectionView)
-                    for (index, behavior) in behaviors.enumerate() {
+                    for behavior in behaviors {
                         let yDistanceFromTouch = fabs(touchPoint.y - behavior.anchorPoint.y)
                         let xDistanceFromTouch = fabs(touchPoint.x - behavior.anchorPoint.x)
                         let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500
@@ -205,7 +205,7 @@ extension SACollectionViewVerticalScalingFlowLayout {
                 case .Horizontal:
                     let delta = newBounds.origin.x - collectionView.bounds.origin.x
                     let touchPoint = collectionView.panGestureRecognizer.locationInView(collectionView)
-                    for (index, behavior) in behaviors.enumerate() {
+                    for behavior in behaviors {
                         let yDistanceFromTouch = fabs(touchPoint.y - behavior.anchorPoint.y)
                         let xDistanceFromTouch = fabs(touchPoint.x - behavior.anchorPoint.x)
                         let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500
