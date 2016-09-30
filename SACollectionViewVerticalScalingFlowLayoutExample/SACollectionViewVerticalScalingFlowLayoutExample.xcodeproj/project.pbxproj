@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D4C05729CBF86653925AD6C /* Pods_SACollectionViewVerticalScalingFlowLayoutExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD53EB6BEE903CC2738C389D /* Pods_SACollectionViewVerticalScalingFlowLayoutExample.framework */; };
 		379177371B244DC5004A8764 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379177361B244DC5004A8764 /* AppDelegate.swift */; };
 		379177391B244DC5004A8764 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379177381B244DC5004A8764 /* ViewController.swift */; };
 		3791773C1B244DC5004A8764 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3791773A1B244DC5004A8764 /* Main.storyboard */; };
 		3791773E1B244DC5004A8764 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3791773D1B244DC5004A8764 /* Images.xcassets */; };
 		379177411B244DC5004A8764 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3791773F1B244DC5004A8764 /* LaunchScreen.xib */; };
 		3791774D1B244DC5004A8764 /* SACollectionViewVerticalScalingFlowLayoutExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791774C1B244DC5004A8764 /* SACollectionViewVerticalScalingFlowLayoutExampleTests.swift */; };
-		69F235EC2B3790F3505D32A1 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54461F381D883EF96F149E5E /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,7 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03C721D415B57DFF8FF95E7C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		060C3C96CE03DC6F196CF159 /* Pods-SACollectionViewVerticalScalingFlowLayoutExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SACollectionViewVerticalScalingFlowLayoutExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SACollectionViewVerticalScalingFlowLayoutExample/Pods-SACollectionViewVerticalScalingFlowLayoutExample.debug.xcconfig"; sourceTree = "<group>"; };
 		379177311B244DC5004A8764 /* SACollectionViewVerticalScalingFlowLayoutExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SACollectionViewVerticalScalingFlowLayoutExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		379177351B244DC5004A8764 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		379177361B244DC5004A8764 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,8 +38,9 @@
 		379177461B244DC5004A8764 /* SACollectionViewVerticalScalingFlowLayoutExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SACollectionViewVerticalScalingFlowLayoutExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3791774B1B244DC5004A8764 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3791774C1B244DC5004A8764 /* SACollectionViewVerticalScalingFlowLayoutExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SACollectionViewVerticalScalingFlowLayoutExampleTests.swift; sourceTree = "<group>"; };
-		40B6C68756C35BF1235098FC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		49CC3DD9B47542C0AB0E5296 /* Pods-SACollectionViewVerticalScalingFlowLayoutExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SACollectionViewVerticalScalingFlowLayoutExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SACollectionViewVerticalScalingFlowLayoutExample/Pods-SACollectionViewVerticalScalingFlowLayoutExample.release.xcconfig"; sourceTree = "<group>"; };
 		54461F381D883EF96F149E5E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD53EB6BEE903CC2738C389D /* Pods_SACollectionViewVerticalScalingFlowLayoutExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SACollectionViewVerticalScalingFlowLayoutExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69F235EC2B3790F3505D32A1 /* Pods.framework in Frameworks */,
+				2D4C05729CBF86653925AD6C /* Pods_SACollectionViewVerticalScalingFlowLayoutExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,8 +68,8 @@
 				379177331B244DC5004A8764 /* SACollectionViewVerticalScalingFlowLayoutExample */,
 				379177491B244DC5004A8764 /* SACollectionViewVerticalScalingFlowLayoutExampleTests */,
 				379177321B244DC5004A8764 /* Products */,
-				5193AFB4BFC79D1FF0C6D49A /* Pods */,
 				60952A99186D7C64DC0096B4 /* Frameworks */,
+				47C4E66DCC8C4ECC520BA9BB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,11 +120,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5193AFB4BFC79D1FF0C6D49A /* Pods */ = {
+		47C4E66DCC8C4ECC520BA9BB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				40B6C68756C35BF1235098FC /* Pods.debug.xcconfig */,
-				03C721D415B57DFF8FF95E7C /* Pods.release.xcconfig */,
+				060C3C96CE03DC6F196CF159 /* Pods-SACollectionViewVerticalScalingFlowLayoutExample.debug.xcconfig */,
+				49CC3DD9B47542C0AB0E5296 /* Pods-SACollectionViewVerticalScalingFlowLayoutExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -132,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				54461F381D883EF96F149E5E /* Pods.framework */,
+				BD53EB6BEE903CC2738C389D /* Pods_SACollectionViewVerticalScalingFlowLayoutExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -143,12 +145,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 379177501B244DC5004A8764 /* Build configuration list for PBXNativeTarget "SACollectionViewVerticalScalingFlowLayoutExample" */;
 			buildPhases = (
-				1C4AFC06F60331AF6C5731FE /* Check Pods Manifest.lock */,
+				207FCD86520B85E87F66B616 /* [CP] Check Pods Manifest.lock */,
 				3791772D1B244DC5004A8764 /* Sources */,
 				3791772E1B244DC5004A8764 /* Frameworks */,
 				3791772F1B244DC5004A8764 /* Resources */,
-				AB5474C2E7C608695C34D94F /* Embed Pods Frameworks */,
-				C39CF3EF64CC476198658D74 /* Copy Pods Resources */,
+				183C12C638854367092BED00 /* [CP] Embed Pods Frameworks */,
+				0F3646C2FF57D00998FC3F38 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -189,9 +191,13 @@
 				TargetAttributes = {
 					379177301B244DC5004A8764 = {
 						CreatedOnToolsVersion = 6.3.2;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 					};
 					379177451B244DC5004A8764 = {
 						CreatedOnToolsVersion = 6.3.2;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 						TestTargetID = 379177301B244DC5004A8764;
 					};
 				};
@@ -236,49 +242,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1C4AFC06F60331AF6C5731FE /* Check Pods Manifest.lock */ = {
+		0F3646C2FF57D00998FC3F38 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SACollectionViewVerticalScalingFlowLayoutExample/Pods-SACollectionViewVerticalScalingFlowLayoutExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AB5474C2E7C608695C34D94F /* Embed Pods Frameworks */ = {
+		183C12C638854367092BED00 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SACollectionViewVerticalScalingFlowLayoutExample/Pods-SACollectionViewVerticalScalingFlowLayoutExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C39CF3EF64CC476198658D74 /* Copy Pods Resources */ = {
+		207FCD86520B85E87F66B616 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -415,27 +421,31 @@
 		};
 		379177511B244DC5004A8764 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40B6C68756C35BF1235098FC /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 060C3C96CE03DC6F196CF159 /* Pods-SACollectionViewVerticalScalingFlowLayoutExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SACollectionViewVerticalScalingFlowLayoutExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "szk-atmosphere.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
 		379177521B244DC5004A8764 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03C721D415B57DFF8FF95E7C /* Pods.release.xcconfig */;
+			baseConfigurationReference = 49CC3DD9B47542C0AB0E5296 /* Pods-SACollectionViewVerticalScalingFlowLayoutExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SACollectionViewVerticalScalingFlowLayoutExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "szk-atmosphere.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -443,6 +453,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -452,6 +463,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "szk-atmosphere.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SACollectionViewVerticalScalingFlowLayoutExample.app/SACollectionViewVerticalScalingFlowLayoutExample";
 			};
 			name = Debug;
@@ -460,11 +472,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = SACollectionViewVerticalScalingFlowLayoutExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "szk-atmosphere.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SACollectionViewVerticalScalingFlowLayoutExample.app/SACollectionViewVerticalScalingFlowLayoutExample";
 			};
 			name = Release;

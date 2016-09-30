@@ -19,6 +19,7 @@ SACollectionViewVerticalScalingFlowLayout applies scaling up or down effect to a
 - [x] Vertical Scaling
 - [x] Rewrite in Swift 
 - [x] Support Horizonal Scaling
+- [x] Supoort Swift2.3
 
 ## Installation
 
