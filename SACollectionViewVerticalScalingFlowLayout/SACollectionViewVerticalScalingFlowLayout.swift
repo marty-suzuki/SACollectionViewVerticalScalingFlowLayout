@@ -8,53 +8,47 @@
 
 import UIKit
 
-private let kEasyValue: CGFloat = 0.05
-private let kHardValue: CGFloat = 0.2
+struct Const {
+    static let easyValue: CGFloat = 0.05
+    static let hardValue: CGFloat = 0.2
+}
 
 public enum SACollectionViewVerticalScalingFlowLayoutAlphaMode {
-    case None, Easy, Hard
-    
-    func value() -> CGFloat {
+    case none, easy, hard
+    var value: CGFloat {
         switch self {
-            case .None:
-                return 0
-                
-            case .Easy:
-                return kEasyValue
-                
-            case .Hard:
-                return kHardValue
+        case .none: return 0
+        case .easy: return Const.easyValue
+        case .hard: return Const.hardValue
         }
     }
 }
 
 public enum SACollectionViewVerticalScalingFlowLayoutScaleMode {
-    case None, Easy, Hard
-    
-    func value() -> CGFloat {
+    case none, easy, hard
+    var value: CGFloat {
         switch self {
-            case .None:
-                return 0
-                
-            case .Easy:
-                return kEasyValue
-                
-            case .Hard:
-                return kHardValue
+            case .none: return 0
+            case .easy: return Const.easyValue
+            case .hard: return Const.hardValue
         }
     }
 }
 
 //MARK: - Initialize Methods
-public class SACollectionViewVerticalScalingFlowLayout : UICollectionViewFlowLayout {
+open class SACollectionViewVerticalScalingFlowLayout : UICollectionViewFlowLayout {
     
-    public var scaleMode: SACollectionViewVerticalScalingFlowLayoutAlphaMode = .Easy
-    public var alphaMode: SACollectionViewVerticalScalingFlowLayoutScaleMode = .Easy
+    fileprivate struct Const {
+        static let minimumInteritemSpacing: CGFloat = 25
+        static let minimumLineSpacing: CGFloat = 25
+    }
     
-    private var dynamicAnimator: UIDynamicAnimator?
+    open var scaleMode: SACollectionViewVerticalScalingFlowLayoutAlphaMode = .easy
+    open var alphaMode: SACollectionViewVerticalScalingFlowLayoutScaleMode = .easy
     
-    private let kMinimumInteritemSpacing: CGFloat = 25
-    private let kMinimumLineSpacing: CGFloat = 25
+    fileprivate lazy var dynamicAnimator: UIDynamicAnimator = {
+        return UIDynamicAnimator(collectionViewLayout: self)
+    }()
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -65,133 +59,124 @@ public class SACollectionViewVerticalScalingFlowLayout : UICollectionViewFlowLay
         super.init()
         configuration()
     }
-}
 
-//MARK: - Private Methods
-extension SACollectionViewVerticalScalingFlowLayout {
-    private func configuration() {
-        dynamicAnimator = UIDynamicAnimator(collectionViewLayout: self)
-        minimumInteritemSpacing = kMinimumInteritemSpacing
-        minimumLineSpacing = kMinimumLineSpacing
-        let width = UIScreen.mainScreen().bounds.size.width
-        itemSize = CGSize(width: width - kMinimumInteritemSpacing * 2, height: width - kMinimumLineSpacing * 2)
-        sectionInset = UIEdgeInsets(top: kMinimumLineSpacing, left: kMinimumInteritemSpacing, bottom: kMinimumLineSpacing, right: kMinimumInteritemSpacing)
+    //MARK: - Private Methods
+    fileprivate func configuration() {
+        minimumInteritemSpacing = Const.minimumInteritemSpacing
+        minimumLineSpacing = Const.minimumLineSpacing
+        let width = UIScreen.main.bounds.size.width
+        itemSize = CGSize(width: width - Const.minimumInteritemSpacing * 2, height: width - Const.minimumLineSpacing * 2)
+        sectionInset = UIEdgeInsets(top: Const.minimumLineSpacing, left: Const.minimumInteritemSpacing, bottom: Const.minimumLineSpacing, right: Const.minimumInteritemSpacing)
     }
     
-    private func scalingProcess(cell: SACollectionViewVerticalScalingCell, var scale: CGFloat, var alpha: CGFloat, minimuScale: CGFloat, minimumAlpha: CGFloat) {
-        if scaleMode != .None {
-            if scale > 1 {
-                scale = 1
-            } else if scale < minimuScale {
-                scale = minimuScale
-            }
-            let transform = CGAffineTransformMakeScale(scale, scale)
+    fileprivate func scalingProcess(_ cell: SACollectionViewVerticalScalingCell, scale: CGFloat, alpha: CGFloat, minimuScale: CGFloat, minimumAlpha: CGFloat) {
+        if scaleMode != .none {
+            let scale = max(0, min(1, max(minimuScale, scale)))
+            let transform = CGAffineTransform(scaleX: scale, y: scale)
             cell.containerView?.transform = transform
             cell.shadeTransform = transform
         }
         
-        if alphaMode != .None {
-            if alpha > 1 {
-                alpha = 1
-            } else if alpha < minimumAlpha {
-                alpha = minimumAlpha
-            }
-            cell.shadeAlpha = (1 - alpha) * 10
+        if alphaMode != .none {
+            cell.shadeAlpha = (1 - max(0 ,min(1, max(minimumAlpha, alpha)))) * 10
         }
     }
 }
 
 //MARK: - Override Methods
 extension SACollectionViewVerticalScalingFlowLayout {
-    override public func prepareLayout() {
-        super.prepareLayout()
+    override open func prepare() {
+        super.prepare()
         
-        guard let contentSize = collectionView?.contentSize, dynamicAnimator = dynamicAnimator,
-                  items = super.layoutAttributesForElementsInRect(CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
+        guard
+            dynamicAnimator.behaviors.count < 1,
+            let contentSize = collectionView?.contentSize,
+            let items = super.layoutAttributesForElements(in: CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
+        else { return }
+        
+        items.forEach {
+            let behaviour = UIAttachmentBehavior(item: $0, attachedToAnchor: $0.center)
+            behaviour.length = 0
+            behaviour.damping = 0.8
+            behaviour.frequency = 1
+            dynamicAnimator.addBehavior(behaviour)
+        }
+    }
+    
+    override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        guard
+            let cells = collectionView?.visibleCells as? [SACollectionViewVerticalScalingCell],
+            let toView = collectionView?.superview,
+            let collectionViewSize = collectionView?.bounds.size
         else {
-            return
+            return super.layoutAttributesForElements(in: rect)
         }
         
-        if dynamicAnimator.behaviors.count < 1 {
-            for item in items {
-                let behaviour = UIAttachmentBehavior(item: item, attachedToAnchor: item.center)
-                behaviour.length = 0
-                behaviour.damping = 0.8
-                behaviour.frequency = 1
-                dynamicAnimator.addBehavior(behaviour)
-            }
+        let items = dynamicAnimator.items(in: rect)
+        switch scrollDirection {
+            case .vertical:
+                cells.forEach {
+                    guard let point = $0.superview?.convert($0.frame.origin, to: toView) else  { return }
+                    let cellSize = $0.bounds.size
+                    if -cellSize.height / 2 >= point.y {
+                        let baseValue = 1 - (point.y / (-cellSize.height / 2))
+                        let scale = 1 + baseValue * scaleMode.value
+                        let alpha = 1 + baseValue * 0.1
+                        scalingProcess($0, scale: scale, alpha: alpha, minimuScale: scaleMode.value, minimumAlpha: alphaMode.value)
+                    } else if collectionViewSize.height - ((cellSize.height / 4) * 3) <= point.y {
+                        let baseValue = (point.y - (collectionViewSize.height - ((cellSize.height / 4) * 3))) / ((cellSize.height / 4) * 3)
+                        let scale = 1 - baseValue * scaleMode.value
+                        let alpha = 1 - baseValue * 0.1
+                        scalingProcess($0, scale: scale, alpha: alpha, minimuScale: scaleMode.value, minimumAlpha: alphaMode.value)
+                    } else {
+                        scalingProcess($0, scale: 1, alpha: 1, minimuScale: scaleMode.value, minimumAlpha: alphaMode.value)
+                    }
+                }
+
+            case .horizontal:
+                cells.forEach {
+                    guard let point = $0.superview?.convert($0.frame.origin, to: toView) else { return }
+                    let cellSize = $0.bounds.size
+                    if -cellSize.width / 2 >= point.x {
+                        let baseValue = 1 - (point.x / (-cellSize.width / 2))
+                        let scale = 1 + baseValue * scaleMode.value
+                        let alpha = 1 + baseValue * 0.1
+                        scalingProcess($0, scale: scale, alpha: alpha, minimuScale: scaleMode.value, minimumAlpha: alphaMode.value)
+                    } else if collectionViewSize.width - ((cellSize.width / 4) * 3) <= point.x {
+                        let baseValue = (point.x - (collectionViewSize.width - ((cellSize.width / 4) * 3))) / ((cellSize.width / 4) * 3)
+                        let scale = 1 - baseValue * scaleMode.value
+                        let alpha = 1 - baseValue * 0.1
+                        scalingProcess($0, scale: scale, alpha: alpha, minimuScale: scaleMode.value, minimumAlpha: alphaMode.value)
+                    } else {
+                        scalingProcess($0, scale: 1, alpha: 1, minimuScale: scaleMode.value, minimumAlpha: alphaMode.value)
+                    }
+                }
         }
+        
+        guard let attributes = items as? [UICollectionViewLayoutAttributes] , !items.isEmpty else {
+            return super.layoutAttributesForElements(in: rect)
+        }
+        return attributes
     }
     
-    override public func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        if let items = dynamicAnimator?.itemsInRect(rect), cells = collectionView?.visibleCells() as? [SACollectionViewVerticalScalingCell], toView = collectionView?.superview, collectionViewSize = collectionView?.bounds.size {
-            switch scrollDirection {
-                case .Vertical:
-                    for cell in cells {
-                        if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
-                            let cellSize = cell.bounds.size
-                            if -cellSize.height / 2 >= point.y {
-                                let baseValue = 1 - (point.y / (-cellSize.height / 2))
-                                let scale = 1 + baseValue * scaleMode.value()
-                                let alpha = 1 + baseValue * 0.1
-                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            } else if collectionViewSize.height - ((cellSize.height / 4) * 3) <= point.y {
-                                let baseValue = (point.y - (collectionViewSize.height - ((cellSize.height / 4) * 3))) / ((cellSize.height / 4) * 3)
-                                let scale = 1 - baseValue * scaleMode.value()
-                                let alpha = 1 - baseValue * 0.1
-                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            } else {
-                                scalingProcess(cell, scale: 1, alpha: 1, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            }
-                        }
-                    }
-
-                case .Horizontal:
-                    for cell in cells {
-                        if let point = cell.superview?.convertPoint(cell.frame.origin, toView: toView) {
-                            let cellSize = cell.bounds.size
-                            if -cellSize.width / 2 >= point.x {
-                                let baseValue = 1 - (point.x / (-cellSize.width / 2))
-                                let scale = 1 + baseValue * scaleMode.value()
-                                let alpha = 1 + baseValue * 0.1
-                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            } else if collectionViewSize.width - ((cellSize.width / 4) * 3) <= point.x {
-                                let baseValue = (point.x - (collectionViewSize.width - ((cellSize.width / 4) * 3))) / ((cellSize.width / 4) * 3)
-                                let scale = 1 - baseValue * scaleMode.value()
-                                let alpha = 1 - baseValue * 0.1
-                                scalingProcess(cell, scale: scale, alpha: alpha, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            } else {
-                                scalingProcess(cell, scale: 1, alpha: 1, minimuScale: scaleMode.value(), minimumAlpha: alphaMode.value())
-                            }
-                        }
-                    }
-            }
-            
-            if !items.isEmpty {
-                return items as? [UICollectionViewLayoutAttributes]
-            }
+    open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let attributes = dynamicAnimator.layoutAttributesForCell(at: indexPath) else {
+            return super.layoutAttributesForItem(at: indexPath)
         }
-        return super.layoutAttributesForElementsInRect(rect)
-    }
-
-    public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        if let attributes = dynamicAnimator?.layoutAttributesForCellAtIndexPath(indexPath) {
-            return attributes
-        }
-        return super.layoutAttributesForItemAtIndexPath(indexPath)
+        return attributes
     }
     
-    public override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         /***
         This method is based on this sample.
         http://www.objc.io/issue-5/collection-views-and-uidynamics.html
         ***/
         
-        if let collectionView = collectionView, behaviors = dynamicAnimator?.behaviors as? [UIAttachmentBehavior] {
+        if let collectionView = collectionView, let behaviors = dynamicAnimator.behaviors as? [UIAttachmentBehavior] {
             switch scrollDirection {
-                case .Vertical:
+                case .vertical:
                     let delta = newBounds.origin.y - collectionView.bounds.origin.y
-                    let touchPoint = collectionView.panGestureRecognizer.locationInView(collectionView)
+                    let touchPoint = collectionView.panGestureRecognizer.location(in: collectionView)
                     for behavior in behaviors {
                         let yDistanceFromTouch = fabs(touchPoint.y - behavior.anchorPoint.y)
                         let xDistanceFromTouch = fabs(touchPoint.x - behavior.anchorPoint.x)
@@ -206,13 +191,13 @@ extension SACollectionViewVerticalScalingFlowLayout {
                             }
                             attributes.center = center
                             
-                            dynamicAnimator?.updateItemUsingCurrentState(attributes)
+                            dynamicAnimator.updateItem(usingCurrentState: attributes)
                         }
                     }
                 
-                case .Horizontal:
+                case .horizontal:
                     let delta = newBounds.origin.x - collectionView.bounds.origin.x
-                    let touchPoint = collectionView.panGestureRecognizer.locationInView(collectionView)
+                    let touchPoint = collectionView.panGestureRecognizer.location(in: collectionView)
                     for behavior in behaviors {
                         let yDistanceFromTouch = fabs(touchPoint.y - behavior.anchorPoint.y)
                         let xDistanceFromTouch = fabs(touchPoint.x - behavior.anchorPoint.x)
@@ -227,7 +212,7 @@ extension SACollectionViewVerticalScalingFlowLayout {
                             }
                             attributes.center = center
                             
-                            dynamicAnimator?.updateItemUsingCurrentState(attributes)
+                            dynamicAnimator.updateItem(usingCurrentState: attributes)
                         }
                     }
             }

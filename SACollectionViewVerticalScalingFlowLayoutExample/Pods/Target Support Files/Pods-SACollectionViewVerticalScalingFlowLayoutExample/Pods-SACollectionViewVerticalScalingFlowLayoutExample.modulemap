@@ -1,0 +1,6 @@
+framework module Pods_SACollectionViewVerticalScalingFlowLayoutExample {
+  umbrella header "Pods-SACollectionViewVerticalScalingFlowLayoutExample-umbrella.h"
+
+  export *
+  module * { export * }
+}

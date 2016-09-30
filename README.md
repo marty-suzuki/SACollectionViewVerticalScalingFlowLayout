@@ -19,19 +19,17 @@ SACollectionViewVerticalScalingFlowLayout applies scaling up or down effect to a
 - [x] Vertical Scaling
 - [x] Rewrite in Swift 
 - [x] Support Horizonal Scaling
+- [x] Supoort Swift2.3
+- [x] Support Swift3
 
 ## Installation
 
 #### CocoaPods
 
-SACollectionViewVerticalScalingFlowLayout is available through [CocoaPods](http://cocoapods.org). If you have cocoapods 0.36.0 or greater, you can install
+SACollectionViewVerticalScalingFlowLayout is available through [CocoaPods](http://cocoapods.org). If you have cocoapods 1.1.0.rc.2 or greater, you can install
 it, simply add the following line to your Podfile:
 
     pod "SACollectionViewVerticalScalingFlowLayout"
-
-#### Manually
-
-Add the [SACollectionViewVerticalScalingFlowLayout](./SACollectionViewVerticalScalingFlowLayout) directory to your project. 
 
 
 ## Usage
@@ -52,8 +50,8 @@ Write this code at viewDidLoad method and so on.
 
 collectionView.registerClass(SACollectionViewVerticalScalingCell.self, forCellWithReuseIdentifier:kCellIdentifier)
 let layout = SACollectionViewVerticalScalingFlowLayout()
-layout.scaleMode = .Hard
-layout.alphaMode = .Easy
+layout.scaleMode = .hard
+layout.alphaMode = .easy
 layout.scrollDirection = .Vertical
 collectionView.collectionViewLayout = layout
     
@@ -63,7 +61,7 @@ if you want to use Horizontal mode.
 
 ```swift
 
-layout.scrollDirection = .Horizontal
+layout.scrollDirection = .horizontal
 
 ```
 
@@ -73,14 +71,14 @@ You can customize scaling and alpha of apearing or disapering cells.
 
 #### For Scale
 
-You can change alpha to set ScaleModeType for scaleMode property of SACollectionViewVerticalScalingFlowLayout.(default: .Easy)
+You can change alpha to set ScaleModeType for scaleMode property of SACollectionViewVerticalScalingFlowLayout.(default: .easy)
 
 ```swift
 
 var scaleMode: SACollectionViewVerticalScalingFlowLayoutScaleMode
 
 enum SACollectionViewVerticalScalingFlowLayoutScaleMode {
-    case None, Easy, Hard
+    case none, easy, hard
 }
 
 
@@ -88,14 +86,14 @@ enum SACollectionViewVerticalScalingFlowLayoutScaleMode {
 
 #### For Alpha
 
-You can change alpha to set AlphaModeType for alphaMode property of SACollectionViewVerticalScalingFlowLayout. (default: .Easy)
+You can change alpha to set AlphaModeType for alphaMode property of SACollectionViewVerticalScalingFlowLayout. (default: .easy)
 
 ``` swift
 	
 var alphaMode: SACollectionViewVerticalScalingFlowLayoutScaleMode
 	
 enum SACollectionViewVerticalScalingFlowLayoutAlphaMode {
-    case None, Easy, Hard
+    case none, easy, hard
 }
 
 ```
@@ -114,8 +112,8 @@ cell.containerView?.addSubview(imageView)
 ```
 
 ## Requirements
-- Xcode 6.3 or greater
-- iOS7.0(manually only) or greater
+- Xcode 8 or greater
+- iOS 8 or greater
 - ARC
 
 ## Author
