@@ -8,21 +8,21 @@
 
 import UIKit
 
-public class SACollectionViewVerticalScalingCell : UICollectionViewCell {
+open class SACollectionViewVerticalScalingCell : UICollectionViewCell {
     
-    public var shadeTransform = CGAffineTransformIdentity {
+    open var shadeTransform: CGAffineTransform = .identity {
         didSet {
             shadeView?.transform = shadeTransform
         }
     }
-    public var shadeAlpha: CGFloat = 0 {
+    open var shadeAlpha: CGFloat = 0 {
         didSet {
             shadeView?.alpha = shadeAlpha
         }
     }
     
-    public private(set) var containerView: UIView?
-    private var shadeView: UIView?
+    open fileprivate(set) var containerView: UIView?
+    fileprivate var shadeView: UIView?
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -30,7 +30,7 @@ public class SACollectionViewVerticalScalingCell : UICollectionViewCell {
     }
     
     public init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         configuration()
     }
     
@@ -42,15 +42,15 @@ public class SACollectionViewVerticalScalingCell : UICollectionViewCell {
 
 //MARK: - Private Methods
 extension SACollectionViewVerticalScalingCell {
-    private func configuration() {
-        backgroundColor = .clearColor()
+    fileprivate func configuration() {
+        backgroundColor = .clear
         
         let containerView = UIView(frame: bounds)
         addSubview(containerView)
         self.containerView = containerView
         
         let shadeView = UIView(frame: bounds)
-        shadeView.backgroundColor = .blackColor()
+        shadeView.backgroundColor = .black
         addSubview(shadeView)
         self.shadeView = shadeView
         shadeAlpha = 0
@@ -59,7 +59,7 @@ extension SACollectionViewVerticalScalingCell {
 
 //MARK: - Override Methods
 extension SACollectionViewVerticalScalingCell {
-    public override func prepareForReuse() {
+    open override func prepareForReuse() {
         super.prepareForReuse()
         containerView?.removeFromSuperview()
         containerView = nil

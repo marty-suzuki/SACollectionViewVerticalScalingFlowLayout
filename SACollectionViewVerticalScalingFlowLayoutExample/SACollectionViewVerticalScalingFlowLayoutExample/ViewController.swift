@@ -13,36 +13,36 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private let kCellIdentifier = "Cell"
-    private var scrolling = false
+    fileprivate let kCellIdentifier = "Cell"
+    fileprivate var scrolling = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        collectionView.registerClass(SACollectionViewVerticalScalingCell.self, forCellWithReuseIdentifier: kCellIdentifier)
+        collectionView.register(SACollectionViewVerticalScalingCell.self, forCellWithReuseIdentifier: kCellIdentifier)
         
         guard let layout = collectionView.collectionViewLayout as? SACollectionViewVerticalScalingFlowLayout else {
             return
         }
         
-        layout.scaleMode = .Hard
-        layout.alphaMode = .Easy
+        layout.scaleMode = .hard
+        layout.alphaMode = .easy
         switch collectionView.tag {
             case 10001:
-                layout.scrollDirection = .Vertical
+                layout.scrollDirection = .vertical
                 
             case 10002:
-                layout.scrollDirection = .Vertical
+                layout.scrollDirection = .vertical
                 layout.itemSize = CGSize(width: 100, height: 100)
                 layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 layout.minimumInteritemSpacing = 10
                 layout.minimumLineSpacing = 10
                 
             case 10003:
-                layout.scrollDirection = .Horizontal
+                layout.scrollDirection = .horizontal
                 
             default:
-                layout.scrollDirection = .Horizontal
+                layout.scrollDirection = .horizontal
                 layout.itemSize = CGSize(width: 100, height: 100)
                 layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 layout.minimumInteritemSpacing = 10
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         }
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 
@@ -61,21 +61,21 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 30
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let tagNumber = 10001
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kCellIdentifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kCellIdentifier, for: indexPath)
         
         if let cell = cell as? SACollectionViewVerticalScalingCell {
             cell.containerView?.viewWithTag(tagNumber)?.removeFromSuperview()
             
             let imageView = UIImageView(frame: cell.bounds)
             imageView.tag = tagNumber
-            let number = indexPath.row % 7 + 1
+            let number = (indexPath as NSIndexPath).row % 7 + 1
             imageView.image = UIImage(named: "0\(number)")
             cell.containerView?.addSubview(imageView)
         }
@@ -85,14 +85,14 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegate {
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         scrolling = true
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         scrolling = false
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(3.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
             if !self.scrolling {
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
             }
